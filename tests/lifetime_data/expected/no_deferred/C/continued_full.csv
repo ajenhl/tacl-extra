@@ -1,0 +1,15 @@
+ngram,size,work,siglum,count,label
+I,1,C,wit1,1,current
+J,1,C,wit1,1,current
+K,1,C,wit1,1,current
+L,1,C,wit1,1,current
+M,1,C,wit1,1,current
+I,1,D,wit1,1,not current
+J,1,D,wit1,1,not current
+J,1,E,wit1,1,not current
+K,1,D,wit1,1,not current
+K,1,E,wit1,1,not current
+L,1,D,wit1,1,not current
+L,1,E,wit1,1,not current
+M,1,D,wit1,1,not current
+M,1,E,wit1,1,not current
