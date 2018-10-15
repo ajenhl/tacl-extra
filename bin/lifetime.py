@@ -40,7 +40,6 @@ Display by n-gram, by text.
 import argparse
 import os
 
-import tacl
 import tacl.command.utils
 from taclextra import lifetime
 
@@ -65,7 +64,6 @@ def main():
     catalogue = tacl.command.utils.get_catalogue(args)
     tokenizer = tacl.command.utils.get_tokenizer(args)
     output_dir = os.path.abspath(args.output)
-    os.mkdir(output_dir)  # Will raise a FileExistsError is directory exists.
     reporter = lifetime.LifetimeReporter(data_store, catalogue, tokenizer,
                                          args.labels, output_dir)
     reporter.process()

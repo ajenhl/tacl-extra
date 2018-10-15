@@ -49,8 +49,8 @@ class LifetimeReporter:
         self._tokenizer = tokenizer
         self._ordered_labels = order_labels(
             self._catalogue.ordered_labels, deferred_labels)
+        os.mkdir(output_dir)
         self._output_dir = output_dir
-        os.mkdir(self._output_dir)
 
     def _concatenate_results(self, result_filenames):
         """Returns a `tacl.Results` containing all of the results from the
