@@ -1,0 +1,7 @@
+P1 P
+P2 P
+P3 P
+C1 C
+C2 C
+C3 C
+U1 U

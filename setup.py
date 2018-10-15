@@ -14,6 +14,7 @@ setup(
     entry_points={
         'console_scripts': [
             'lifetime=bin.lifetime:main',
+            'paternity=bin.paternity:main',
         ],
     },
     test_suite='tests',
