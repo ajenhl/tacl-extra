@@ -1,0 +1,5 @@
+ngram,size,work,siglum,count,label
+EGHI,4,C,wit2,1,C
+EGHI,4,D,wit2,1,D
+EFGHI,5,C,wit1,1,C
+EFGHI,5,D,wit1,1,D

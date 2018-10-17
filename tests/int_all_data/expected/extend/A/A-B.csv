@@ -1,0 +1,5 @@
+ngram,size,work,siglum,count,label
+BCDEF,5,A,wit1,1,A
+BCDEF,5,B,wit1,1,B
+BCDEG,5,A,wit2,1,A
+BCDEG,5,B,wit2,1,B

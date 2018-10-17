@@ -1,0 +1,6 @@
+ngram,size,work,siglum,count,label
+GH,2,D,wit1,1,D
+EFG,3,B,wit1,1,B
+EFG,3,D,wit1,1,D
+EGH,3,B,wit2,1,B
+EGH,3,D,wit2,1,D

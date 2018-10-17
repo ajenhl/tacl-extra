@@ -1,0 +1,5 @@
+ngram,size,work,siglum,count,label
+DEF,3,A,wit1,1,A
+DEF,3,C,wit1,1,C
+DEG,3,A,wit2,1,A
+DEG,3,C,wit2,1,C

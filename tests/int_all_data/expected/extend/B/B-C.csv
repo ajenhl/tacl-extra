@@ -1,0 +1,6 @@
+ngram,size,work,siglum,count,label
+GH,2,C,wit1,1,C
+DEFG,4,B,wit1,1,B
+DEFG,4,C,wit1,1,C
+DEGH,4,B,wit2,1,B
+DEGH,4,C,wit2,1,C
