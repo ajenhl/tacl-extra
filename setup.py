@@ -13,12 +13,13 @@ setup(
     packages=['taclextra'],
     entry_points={
         'console_scripts': [
+            'int-all=bin.int_all:main',
             'lifetime=bin.lifetime:main',
             'paternity=bin.paternity:main',
         ],
     },
     test_suite='tests',
-    install_required=['tacl'],
+    install_requires=['tacl'],
     classifiers=[
         'Environment :: Console',
         'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',
