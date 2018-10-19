@@ -21,34 +21,13 @@ def generate_label_map(current_label, not_current_labels):
     return mapping
 
 
-def order_labels(labels, deferred):
-    """Returns a copy of `labels` with `deferred` labels moved to the end
-    of the list.
-
-    :param labels: labels to reorder
-    :type labels: `list`
-    :param deferred: labels to move to the end
-    :type deferred: `list`
-    :rtype: `list`
-
-    """
-    ordered = []
-    for label in labels:
-        if label not in deferred:
-            ordered.append(label)
-    ordered.extend(deferred)
-    return ordered
-
-
 class LifetimeReporter:
 
-    def __init__(self, data_store, catalogue, tokenizer, deferred_labels,
-                 output_dir):
+    def __init__(self, data_store, catalogue, tokenizer, output_dir):
         self._data_store = data_store
         self._catalogue = catalogue
         self._tokenizer = tokenizer
-        self._ordered_labels = order_labels(
-            self._catalogue.ordered_labels, deferred_labels)
+        self._ordered_labels = self._catalogue.ordered_labels
         os.mkdir(output_dir)
         self._output_dir = output_dir
 

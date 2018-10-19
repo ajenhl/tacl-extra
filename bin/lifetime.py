@@ -47,7 +47,6 @@ DESCRIPTION = '''\
     Generates results data and a report showing the lifetime of
     n-grams that come into or fall out of use in a group of
     corpora.'''
-HELP_LABELS = 'Labels to be counted as occurring after all other labels.'
 HELP_OUTPUT = 'Directory to output to.'
 
 
@@ -57,13 +56,11 @@ def main():
     tacl.command.utils.add_tokenizer_argument(parser)
     tacl.command.utils.add_query_arguments(parser)
     parser.add_argument('output', help=HELP_OUTPUT, metavar='DIRECTORY')
-    parser.add_argument('labels', help=HELP_LABELS, metavar='LABELS',
-                        nargs='*')
     args = parser.parse_args()
     data_store = tacl.command.utils.get_data_store(args)
     catalogue = tacl.command.utils.get_catalogue(args)
     tokenizer = tacl.command.utils.get_tokenizer(args)
     output_dir = os.path.abspath(args.output)
     reporter = lifetime.LifetimeReporter(data_store, catalogue, tokenizer,
-                                         args.labels, output_dir)
+                                         output_dir)
     reporter.process()

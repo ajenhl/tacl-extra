@@ -17,12 +17,10 @@ class LifetimeTestCase (TaclExtraTestCase):
         self._data_dir = os.path.join(base_dir, 'lifetime_data')
         self._tokenizer = tacl.Tokenizer(*tacl.constants.TOKENIZERS['cbeta'])
 
-    def _compare_results(self, corpus_dir, catalogue_name, deferred_labels,
-                         expected_dir_name):
+    def _compare_results(self, corpus_dir, catalogue_name):
         """Compare all of the actual results files with the expected
         versions."""
-        expected_dir = os.path.join(self._data_dir, 'expected',
-                                    expected_dir_name)
+        expected_dir = os.path.join(self._data_dir, 'expected')
         corpus = tacl.Corpus(os.path.join(self._data_dir, corpus_dir),
                              self._tokenizer)
         catalogue = tacl.Catalogue()
@@ -33,10 +31,9 @@ class LifetimeTestCase (TaclExtraTestCase):
             data_store.add_ngrams(corpus, 1, 1)
             output_dir = os.path.join(temp_dir, 'output')
             reporter = lifetime.LifetimeReporter(
-                data_store, catalogue, self._tokenizer, deferred_labels,
-                output_dir)
+                data_store, catalogue, self._tokenizer, output_dir)
             reporter.process()
             self._compare_results_dirs(output_dir, expected_dir)
 
     def test_process(self):
-        self._compare_results('corpus', 'catalogue.txt', [], 'no_deferred')
+        self._compare_results('corpus', 'catalogue.txt')
