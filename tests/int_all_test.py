@@ -15,7 +15,7 @@ class IntAllTestCase (TaclExtraTestCase):
         self._tokenizer = tacl.Tokenizer(*tacl.constants.TOKENIZERS['cbeta'])
 
     def _compare_results(self, expected_dir_name, minimum, maximum,
-                         seen_pairs):
+                         catalogue, seen_pairs):
         expected_dir = os.path.join(self._data_dir, 'expected',
                                     expected_dir_name)
         corpus = tacl.Corpus(os.path.join(self._data_dir, 'corpus'),
@@ -32,17 +32,24 @@ class IntAllTestCase (TaclExtraTestCase):
                     fh.writelines(['{},{}\n'.format(a, b) for a, b in
                                    seen_pairs])
             pi = PairedIntersector(data_store, corpus, self._tokenizer,
-                                   actual_dir, tracker_path)
+                                   catalogue, actual_dir, tracker_path)
             pi.intersect_all()
             self._compare_results_dirs(actual_dir, expected_dir)
 
-    def test_intersect_all_no_extend(self):
-        self._compare_results('no-extend', 1, 1, None)
+    def test_intersect_all_catalogue(self):
+        catalogue = tacl.Catalogue({'A': 'A', 'B': 'B', 'C': 'C'})
+        self._compare_results('catalogue', 1, 1, catalogue, None)
 
     def test_intersect_all_extend(self):
-        self._compare_results('extend', 2, 2, None)
+        catalogue = tacl.Catalogue({'A': 'A', 'B': 'B', 'C': 'C', 'D': 'D'})
+        self._compare_results('extend', 2, 2, catalogue, None)
+
+    def test_intersect_all_no_extend(self):
+        catalogue = tacl.Catalogue({'A': 'A', 'B': 'B', 'C': 'C', 'D': 'D'})
+        self._compare_results('no-extend', 1, 1, catalogue, None)
 
     def test_tracking(self):
         """Tests that seen pairs are not regenerated."""
+        catalogue = tacl.Catalogue({'A': 'A', 'B': 'B', 'C': 'C', 'D': 'D'})
         seen_pairs = (('A', 'B'), ('A', 'C'), ('B', 'C'))
-        self._compare_results('tracking', 1, 1, seen_pairs)
+        self._compare_results('tracking', 1, 1, catalogue, seen_pairs)

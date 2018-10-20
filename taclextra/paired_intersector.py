@@ -8,7 +8,7 @@ import tacl
 
 class PairedIntersector:
 
-    def __init__(self, data_store, corpus, tokenizer, output_dir,
+    def __init__(self, data_store, corpus, tokenizer, catalogue, output_dir,
                  tracker_path):
         self._logger = logging.getLogger(__name__)
         self._output_dir = os.path.abspath(output_dir)
@@ -16,21 +16,22 @@ class PairedIntersector:
         self._store = data_store
         self._corpus = corpus
         self._tokenizer = tokenizer
+        self._catalogue = catalogue
         self._seen_pairs = self._get_seen_pairs(self._tracking_path)
 
     def intersect_all(self):
         os.makedirs(self._output_dir, exist_ok=True)
-        works = sorted(self._corpus.get_works())
+        works = sorted(self._catalogue.keys())
         with open(self._tracking_path, 'a', newline='') as tracking_fh:
             writer = csv.writer(tracking_fh)
-            for filename in works:
-                output_path = os.path.join(self._output_dir, filename)
+            for work in works:
+                output_path = os.path.join(self._output_dir, work)
                 os.makedirs(output_path, exist_ok=True)
                 catalogue = tacl.Catalogue()
-                catalogue[filename] = filename
-                for alt_filename in works:
-                    self.process_pair(filename, alt_filename, catalogue,
-                                      output_path, writer)
+                catalogue[work] = work
+                for alt_work in works:
+                    self.process_pair(work, alt_work, catalogue, output_path,
+                                      writer)
 
     def _get_seen_pairs(self, tracking_filename):
         seen_pairs = {}
@@ -61,26 +62,25 @@ class PairedIntersector:
         return os.path.join(output_path, '{}-{}.csv'.format(
             filename, alt_filename))
 
-    def process_pair(self, filename, alt_filename, catalogue, output_path,
+    def process_pair(self, work, alt_work, catalogue, output_path,
                      writer):
-        if alt_filename in self._seen_pairs.get(filename, []) or \
-           filename == alt_filename:
+        if alt_work in self._seen_pairs.get(work, []) or \
+           work == alt_work:
                 self._logger.info(
                     'Skipping {} with {} as already done'.format(
-                        filename, alt_filename))
+                        work, alt_work))
         else:
             self._logger.info('Intersecting {} with {}'.format(
-                filename, alt_filename))
-            catalogue[alt_filename] = alt_filename
+                work, alt_work))
+            catalogue[alt_work] = alt_work
             results = self._get_results(catalogue)
             results_filename = self._get_results_filename(
-                output_path, filename, alt_filename)
+                output_path, work, alt_work)
             with open(results_filename, 'w', newline='') as results_fh:
                 results.csv(results_fh)
-            del catalogue[alt_filename]
-            self._seen_pairs.setdefault(filename, []).append(alt_filename)
-            self._seen_pairs.setdefault(alt_filename, []).append(filename)
+            del catalogue[alt_work]
+            self._seen_pairs.setdefault(work, []).append(alt_work)
+            self._seen_pairs.setdefault(alt_work, []).append(work)
             self._logger.debug(
-                'Writing {} and {} to tracking CSV'.format(filename,
-                                                           alt_filename))
-            writer.writerow([filename, alt_filename])
+                'Writing {} and {} to tracking CSV'.format(work, alt_work))
+            writer.writerow([work, alt_work])
