@@ -9,7 +9,28 @@ import tacl
 class PairedIntersector:
 
     def __init__(self, data_store, corpus, tokenizer, catalogue, output_dir,
-                 tracker_path):
+                 tracker_path, minimum=1, maximum=10):
+        """Initialise a PairedIntersector object.
+
+        :param data_store: database to query, or None to use
+                           individually created databases
+        :type data_store: `tacl.DataStore` or None
+        :param corpus: corpus of works to intersect
+        :type corpus: `tacl.Corpus`
+        :param tokenizer: tokenizer for the n-grams
+        :type tokenizer: `tacl.Tokenizer`
+        :param catalogue: catalogue to limit the works to intersect
+        :type catalogue: `tacl.Catalogue`
+        :param output_dir: path to directory to output results to
+        :type ouput_dir: `str`
+        :param tracker_path: path to tracker file
+        :type tracker_path: `str`
+        :param minimum: minimum n-gram size when creating individual databases
+        :type minimum: `int`
+        :param maximum: maximum n-gram size when creating individual databases
+        :type maximum: `int`
+
+        """
         self._logger = logging.getLogger(__name__)
         self._output_dir = os.path.abspath(output_dir)
         self._tracking_path = os.path.abspath(tracker_path)
@@ -18,6 +39,8 @@ class PairedIntersector:
         self._tokenizer = tokenizer
         self._catalogue = catalogue
         self._seen_pairs = self._get_seen_pairs(self._tracking_path)
+        self._minimum = minimum
+        self._maximum = maximum
 
     def intersect_all(self):
         os.makedirs(self._output_dir, exist_ok=True)
@@ -45,10 +68,17 @@ class PairedIntersector:
 
     def _get_results(self, catalogue):
         results = io.StringIO()
+        if self._store is None:
+            store = tacl.DataStore(':memory:', True)
+            store.add_ngrams(self._corpus, self._minimum, self._maximum,
+                             self._catalogue)
+        else:
+            store = self._store
         self._logger.debug('Validating corpus/catalogue')
-        self._store.validate(self._corpus, catalogue)
+        store.validate(self._corpus, catalogue)
         self._logger.debug('Running intersection')
-        self._store.intersection(catalogue, results)
+        store.intersection(catalogue, results)
+        store = None
         results.seek(0)
         self._logger.debug('Generating results')
         results = tacl.Results(results, self._tokenizer)
