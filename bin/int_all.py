@@ -49,7 +49,7 @@ def main():
     if hasattr(args, 'verbose'):
         tacl.command.utils.configure_logging(args.verbose, logger)
     corpus = tacl.command.utils.get_corpus(args)
-    if args.database == 'memory':
+    if args.db == 'memory':
         data_store = None
     else:
         data_store = tacl.command.utils.get_data_store(args)
