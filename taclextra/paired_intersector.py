@@ -71,7 +71,7 @@ class PairedIntersector:
         if self._store is None:
             store = tacl.DataStore(':memory:', True)
             store.add_ngrams(self._corpus, self._minimum, self._maximum,
-                             self._catalogue)
+                             catalogue)
         else:
             store = self._store
         self._logger.debug('Validating corpus/catalogue')
