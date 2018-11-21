@@ -14,6 +14,7 @@ setup(
     entry_points={
         'console_scripts': [
             'int-all=bin.int_all:main',
+            'jitc=bin.jitc:main',
             'lifetime=bin.lifetime:main',
             'paternity=bin.paternity:main',
         ],
@@ -22,7 +23,8 @@ setup(
     install_requires=['tacl'],
     classifiers=[
         'Environment :: Console',
-        'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',
+        'License :: OSI Approved :: GNU General Public License v3 or later'
+        '(GPLv3+)',
         'Programming Language :: Python :: 3',
         'Topic :: Text Processing :: Linguistic',
     ],

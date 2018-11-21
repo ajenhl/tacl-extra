@@ -1,0 +1,3 @@
+A in
+B out
+C neither

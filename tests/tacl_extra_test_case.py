@@ -8,9 +8,12 @@ class TaclExtraTestCase (unittest.TestCase):
 
     def _check_common(self, dircmp):
         for common_file in dircmp.common_files:
-            self._compare_results_files(
-                os.path.join(dircmp.left, common_file),
-                os.path.join(dircmp.right, common_file))
+            actual_path = os.path.join(dircmp.left, common_file)
+            expected_path = os.path.join(dircmp.right, common_file)
+            if os.path.splitext(common_file)[1] == '.csv':
+                self._compare_results_files(actual_path, expected_path)
+            else:
+                self._compare_non_results_files(actual_path, expected_path)
         for sd in dircmp.subdirs.values():
             self._check_common(sd)
 
@@ -19,6 +22,13 @@ class TaclExtraTestCase (unittest.TestCase):
         self.assertEqual(dircmp.right_only, [], 'Actual results missing expected files and/or subdirectories found in {}'.format(dircmp.right))
         for sd in dircmp.subdirs.values():
             self._check_unshared(sd)
+
+    def _compare_non_results_files(self, actual_path, expected_path):
+        """Checks that the non-results files at `actual_path` and
+        `expected_path` are the same."""
+        with open(actual_path) as actual_fh:
+            with open(expected_path) as expected_fh:
+                self.assertEqual(actual_fh.read(), expected_fh.read())
 
     def _compare_results_dirs(self, actual_dir, expected_dir):
         # First check that the two directories contain only the same

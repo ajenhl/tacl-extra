@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>JitC Report</title>
+    <link rel="stylesheet" href="report_assets/report.css" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+    <script src="http://d3js.org/d3.v2.min.js?2.8.1"></script>
+    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script>
+      $( function() {
+        $(".tabs").tabs();
+      } );
+    </script>
+  </head>
+  <body>
+    <h1>Jewel in the Clouds Report</h1>
+
+    <p>The following report shows the amount of overlap between pairs
+    of works within a set, after removing those overlaps that also
+    occur when comparing the works with a second set of works.</p>
+
+    <p>The content of each work, in comparison with another work, has
+    three categories:</p>
+
+    <dl>
+      <dt>common</dt>
+      <dd>Text that is shared between both works, and that also occurs
+      in at least one works in the second set of works.</dd>
+
+      <dt>shared</dt>
+      <dd>Text that is shared between both works, and that does not
+      occur in any of the works in the second set of works.</dd>
+
+      <dt>unique</dt>
+      <dd>Text that is unique to the work, occuring neither in the
+      other work, nor in any of the works in the second set of
+      works.</dd>
+    </dl>
+
+    <h2>Works analysed for overlap</h2>
+
+    <ul>
+      
+      <li><a href="#work-0">A</a></li>
+      
+      <li><a href="#work-1">B</a></li>
+      
+      <li><a href="#work-2">C</a></li>
+      
+      <li><a href="#work-3">D</a></li>
+      
+    </ul>
+
+    <h2>Works used to find unwanted overlap</h2>
+
+    <ul>
+      
+      <li>E</li>
+      
+      <li>F</li>
+      
+    </ul>
+
+    <h2>Shared tokens: chord</h2>
+
+    <div id="chord"></div>
+
+    <h2>Shared tokens: matrix</h2>
+
+    <p>Order: <select id="order">
+      <option value="name">by work name</option>
+      <option value="count">by most overlapping</option>
+    </select></p>
+
+    <div id="matrix"></div>
+
+    
+    <div id="work-0" type="text">
+      <h2>A</h2>
+
+      <div class="tabs">
+        <ul>
+          <li><a href="#tabs-0-1">Breakdown chart</a></li>
+          <li><a href="#tabs-0-2">Related chart</a></li>
+          <li><a href="#tabs-0-3">Data</a></li>
+        </ul>
+        <div id="tabs-0-1">
+          <div id="breakdown_0"></div>
+        </div>
+        <div id="tabs-0-2">
+          <div id="related_0"></div>
+        </div>
+        <div id="tabs-0-3">
+          <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>scope</th>
+      <th>common</th>
+      <th>shared</th>
+      <th>unique</th>
+    </tr>
+    <tr>
+      <th>related_work</th>
+      <th>siglum</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>B</th>
+      <th>wit1</th>
+      <td>33.333333</td>
+      <td>66.666667</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>C</th>
+      <th>wit1</th>
+      <td>16.666667</td>
+      <td>33.333333</td>
+      <td>50.0</td>
+    </tr>
+    <tr>
+      <th>D</th>
+      <th>wit1</th>
+      <td>25.000000</td>
+      <td>37.500000</td>
+      <td>37.5</td>
+    </tr>
+  </tbody>
+</table>
+        </div>
+      </div>
+    </div>
+    
+    <div id="work-1" type="text">
+      <h2>B</h2>
+
+      <div class="tabs">
+        <ul>
+          <li><a href="#tabs-1-1">Breakdown chart</a></li>
+          <li><a href="#tabs-1-2">Related chart</a></li>
+          <li><a href="#tabs-1-3">Data</a></li>
+        </ul>
+        <div id="tabs-1-1">
+          <div id="breakdown_1"></div>
+        </div>
+        <div id="tabs-1-2">
+          <div id="related_1"></div>
+        </div>
+        <div id="tabs-1-3">
+          <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>scope</th>
+      <th>common</th>
+      <th>shared</th>
+      <th>unique</th>
+    </tr>
+    <tr>
+      <th>related_work</th>
+      <th>siglum</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="2" valign="top">A</th>
+      <th>wit1</th>
+      <td>14.285714</td>
+      <td>57.142857</td>
+      <td>28.571429</td>
+    </tr>
+    <tr>
+      <th>wit2</th>
+      <td>28.571429</td>
+      <td>42.857143</td>
+      <td>28.571429</td>
+    </tr>
+    <tr>
+      <th>C</th>
+      <th>wit1</th>
+      <td>16.666667</td>
+      <td>33.333333</td>
+      <td>50.000000</td>
+    </tr>
+    <tr>
+      <th>D</th>
+      <th>wit1</th>
+      <td>25.000000</td>
+      <td>25.000000</td>
+      <td>50.000000</td>
+    </tr>
+  </tbody>
+</table>
+        </div>
+      </div>
+    </div>
+    
+    <div id="work-2" type="text">
+      <h2>C</h2>
+
+      <div class="tabs">
+        <ul>
+          <li><a href="#tabs-2-1">Breakdown chart</a></li>
+          <li><a href="#tabs-2-2">Related chart</a></li>
+          <li><a href="#tabs-2-3">Data</a></li>
+        </ul>
+        <div id="tabs-2-1">
+          <div id="breakdown_2"></div>
+        </div>
+        <div id="tabs-2-2">
+          <div id="related_2"></div>
+        </div>
+        <div id="tabs-2-3">
+          <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>scope</th>
+      <th>common</th>
+      <th>shared</th>
+      <th>unique</th>
+    </tr>
+    <tr>
+      <th>related_work</th>
+      <th>siglum</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="2" valign="top">A</th>
+      <th>wit1</th>
+      <td>0.000000</td>
+      <td>28.571429</td>
+      <td>71.428571</td>
+    </tr>
+    <tr>
+      <th>wit2</th>
+      <td>14.285714</td>
+      <td>14.285714</td>
+      <td>71.428571</td>
+    </tr>
+    <tr>
+      <th>B</th>
+      <th>wit1</th>
+      <td>16.666667</td>
+      <td>33.333333</td>
+      <td>50.000000</td>
+    </tr>
+    <tr>
+      <th>D</th>
+      <th>wit1</th>
+      <td>37.500000</td>
+      <td>25.000000</td>
+      <td>37.500000</td>
+    </tr>
+  </tbody>
+</table>
+        </div>
+      </div>
+    </div>
+    
+    <div id="work-3" type="text">
+      <h2>D</h2>
+
+      <div class="tabs">
+        <ul>
+          <li><a href="#tabs-3-1">Breakdown chart</a></li>
+          <li><a href="#tabs-3-2">Related chart</a></li>
+          <li><a href="#tabs-3-3">Data</a></li>
+        </ul>
+        <div id="tabs-3-1">
+          <div id="breakdown_3"></div>
+        </div>
+        <div id="tabs-3-2">
+          <div id="related_3"></div>
+        </div>
+        <div id="tabs-3-3">
+          <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>scope</th>
+      <th>common</th>
+      <th>shared</th>
+      <th>unique</th>
+    </tr>
+    <tr>
+      <th>related_work</th>
+      <th>siglum</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="2" valign="top">A</th>
+      <th>wit1</th>
+      <td>14.285714</td>
+      <td>42.857143</td>
+      <td>42.857143</td>
+    </tr>
+    <tr>
+      <th>wit2</th>
+      <td>28.571429</td>
+      <td>42.857143</td>
+      <td>28.571429</td>
+    </tr>
+    <tr>
+      <th>B</th>
+      <th>wit1</th>
+      <td>33.333333</td>
+      <td>33.333333</td>
+      <td>33.333333</td>
+    </tr>
+    <tr>
+      <th>C</th>
+      <th>wit1</th>
+      <td>50.000000</td>
+      <td>33.333333</td>
+      <td>16.666667</td>
+    </tr>
+  </tbody>
+</table>
+        </div>
+      </div>
+    </div>
+    
+
+    <script src="report_data/matrix_data.js"></script>
+    <script src="report_assets/matrix.js"></script>
+    <script src="report_data/chord_data.js"></script>
+    <script src="report_assets/chord.js"></script>
+    <script src="report_assets/stacked_bar.js"></script>
+    <script src="report_assets/grouped_bar.js"></script>
+    
+    <script>
+      var breakdown_chart_0 = stackedBarChart();
+      d3.csv("report_data/breakdown_A.csv", function(data) {
+        d3.select("#breakdown_0").datum(data).call(
+          breakdown_chart_0);
+      });
+    </script>
+    <script>
+      var related_chart_0 = groupedBarChart();
+      d3.csv("report_data/related_A.csv", function(data) {
+        d3.select("#related_0").datum(data).call(
+          related_chart_0);
+      });
+    </script>
+    
+    <script>
+      var breakdown_chart_1 = stackedBarChart();
+      d3.csv("report_data/breakdown_B.csv", function(data) {
+        d3.select("#breakdown_1").datum(data).call(
+          breakdown_chart_1);
+      });
+    </script>
+    <script>
+      var related_chart_1 = groupedBarChart();
+      d3.csv("report_data/related_B.csv", function(data) {
+        d3.select("#related_1").datum(data).call(
+          related_chart_1);
+      });
+    </script>
+    
+    <script>
+      var breakdown_chart_2 = stackedBarChart();
+      d3.csv("report_data/breakdown_C.csv", function(data) {
+        d3.select("#breakdown_2").datum(data).call(
+          breakdown_chart_2);
+      });
+    </script>
+    <script>
+      var related_chart_2 = groupedBarChart();
+      d3.csv("report_data/related_C.csv", function(data) {
+        d3.select("#related_2").datum(data).call(
+          related_chart_2);
+      });
+    </script>
+    
+    <script>
+      var breakdown_chart_3 = stackedBarChart();
+      d3.csv("report_data/breakdown_D.csv", function(data) {
+        d3.select("#breakdown_3").datum(data).call(
+          breakdown_chart_3);
+      });
+    </script>
+    <script>
+      var related_chart_3 = groupedBarChart();
+      d3.csv("report_data/related_D.csv", function(data) {
+        d3.select("#related_3").datum(data).call(
+          related_chart_3);
+      });
+    </script>
+    
+  </body>
+</html>

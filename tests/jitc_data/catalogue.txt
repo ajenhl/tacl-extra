@@ -1,0 +1,6 @@
+A in
+B in
+C in
+D in
+E out
+F out
