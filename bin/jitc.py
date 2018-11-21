@@ -8,8 +8,8 @@ import argparse
 import logging
 import os
 
-import tacl.command.utils as utils
-from tacl.command.formatters import ParagraphFormatter
+import tacl.cli.utils as utils
+from tacl.cli.formatters import ParagraphFormatter
 from tacl import constants
 from taclextra import jitc
 

@@ -40,7 +40,7 @@ Display by n-gram, by text.
 import argparse
 import os
 
-import tacl.command.utils
+import tacl.cli.utils as utils
 from taclextra import lifetime
 
 DESCRIPTION = '''\
@@ -52,14 +52,14 @@ HELP_OUTPUT = 'Directory to output to.'
 
 def main():
     parser = argparse.ArgumentParser(description=DESCRIPTION)
-    tacl.command.utils.add_db_arguments(parser)
-    tacl.command.utils.add_tokenizer_argument(parser)
-    tacl.command.utils.add_query_arguments(parser)
+    utils.add_db_arguments(parser)
+    utils.add_tokenizer_argument(parser)
+    utils.add_query_arguments(parser)
     parser.add_argument('output', help=HELP_OUTPUT, metavar='DIRECTORY')
     args = parser.parse_args()
-    data_store = tacl.command.utils.get_data_store(args)
-    catalogue = tacl.command.utils.get_catalogue(args)
-    tokenizer = tacl.command.utils.get_tokenizer(args)
+    data_store = utils.get_data_store(args)
+    catalogue = utils.get_catalogue(args)
+    tokenizer = utils.get_tokenizer(args)
     output_dir = os.path.abspath(args.output)
     reporter = lifetime.LifetimeReporter(data_store, catalogue, tokenizer,
                                          output_dir)

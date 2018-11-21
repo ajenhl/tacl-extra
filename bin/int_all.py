@@ -3,8 +3,8 @@
 import argparse
 import logging
 
-from tacl.command.formatters import ParagraphFormatter
-import tacl.command.utils
+from tacl.cli.formatters import ParagraphFormatter
+import tacl.cli.utils as utils
 from taclextra import paired_intersector
 
 
@@ -36,10 +36,10 @@ def main():
                         metavar='MINIMUM', type=int)
     parser.add_argument('--max_size', default=10, help=MAXIMUM_HELP,
                         metavar='MAXIMUM', type=int)
-    tacl.command.utils.add_common_arguments(parser)
-    tacl.command.utils.add_db_arguments(parser)
-    tacl.command.utils.add_corpus_arguments(parser)
-    tacl.command.utils.add_query_arguments(parser)
+    utils.add_common_arguments(parser)
+    utils.add_db_arguments(parser)
+    utils.add_corpus_arguments(parser)
+    utils.add_query_arguments(parser)
     parser.add_argument('output_dir', help='Path to output directory',
                         metavar='DIRECTORY')
     parser.add_argument('tracker_path', help='Path to tracking file',
@@ -47,14 +47,14 @@ def main():
     args = parser.parse_args()
     logger = logging.getLogger('taclextra')
     if hasattr(args, 'verbose'):
-        tacl.command.utils.configure_logging(args.verbose, logger)
-    corpus = tacl.command.utils.get_corpus(args)
+        utils.configure_logging(args.verbose, logger)
+    corpus = utils.get_corpus(args)
     if args.db == 'memory':
         data_store = None
     else:
-        data_store = tacl.command.utils.get_data_store(args)
-    tokenizer = tacl.command.utils.get_tokenizer(args)
-    catalogue = tacl.command.utils.get_catalogue(args)
+        data_store = utils.get_data_store(args)
+    tokenizer = utils.get_tokenizer(args)
+    catalogue = utils.get_catalogue(args)
     pi = paired_intersector.PairedIntersector(
         data_store, corpus, tokenizer, catalogue, args.output_dir,
         args.tracker_path, args.min_size, args.max_size)

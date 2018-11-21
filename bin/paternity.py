@@ -1,7 +1,7 @@
 import argparse
 
-from tacl.command.formatters import ParagraphFormatter
-import tacl.command.utils
+from tacl.cli.formatters import ParagraphFormatter
+import tacl.cli.utils as utils
 import taclextra.paternity
 
 
@@ -57,9 +57,9 @@ def main():
     parser = argparse.ArgumentParser(description=DESCRIPTION,
                                      epilog=EPILOG,
                                      formatter_class=ParagraphFormatter)
-    tacl.command.utils.add_db_arguments(parser)
-    tacl.command.utils.add_tokenizer_argument(parser)
-    tacl.command.utils.add_query_arguments(parser)
+    utils.add_db_arguments(parser)
+    utils.add_tokenizer_argument(parser)
+    utils.add_query_arguments(parser)
     parser.add_argument('parent', help=PARENT_LABEL_HELP,
                         metavar='PARENT_LABEL')
     parser.add_argument('child', help=CHILD_LABEL_HELP, metavar='CHILD_LABEL')
@@ -70,9 +70,9 @@ def main():
     parser.add_argument('output_dir', help=OUTPUT_DIR_HELP,
                         metavar='DIRECTORY')
     args = parser.parse_args()
-    catalogue = tacl.command.utils.get_catalogue(args)
-    data_store = tacl.command.utils.get_data_store(args)
-    tokenizer = tacl.command.utils.get_tokenizer(args)
+    catalogue = utils.get_catalogue(args)
+    data_store = utils.get_data_store(args)
+    tokenizer = utils.get_tokenizer(args)
     try:
         test = taclextra.paternity.PaternityTest(
             data_store, catalogue, tokenizer, args.parent, args.child,
