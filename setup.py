@@ -6,9 +6,18 @@ with open('README.rst') as fh:
 
 setup(
     name='tacl-extra',
+    version='1.0.0',
+    description='Collection of scripts to generate various TACL results '
+    'and reports',
     long_description=long_description,
     author='Jamie Norrish',
     author_email='jamie@artefact.org.nz',
+    url='https://github.com/ajenhl/tacl-extra',
+    project_urls={
+        'Source': 'https://github.com/ajenhl/tacl-extra',
+        'Tracker': 'https://github.com/ajenhl/tacl-extra/issues',
+    }
+    python_requires='~=3.5',
     license='GPLv3+',
     packages=['taclextra'],
     entry_points={
@@ -18,6 +27,10 @@ setup(
             'lifetime=bin.lifetime:main',
             'paternity=bin.paternity:main',
         ],
+    },
+    package_data={
+        'taclextra': ['assets/jitc/*.css', 'assets/jitc/*.js',
+                      'assets/templates/*.html'],
     },
     test_suite='tests',
     install_requires=['tacl'],
