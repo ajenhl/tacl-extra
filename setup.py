@@ -33,7 +33,7 @@ setup(
                       'assets/templates/*.html'],
     },
     test_suite='tests',
-    install_requires=['tacl'],
+    install_requires=['tacl>=4.2.0'],
     classifiers=[
         'Environment :: Console',
         'License :: OSI Approved :: GNU General Public License v3 or later'
