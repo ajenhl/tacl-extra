@@ -6,7 +6,7 @@ with open('README.rst') as fh:
 
 setup(
     name='tacl-extra',
-    version='1.0.0',
+    version='1.0.1',
     description='Collection of scripts to generate various TACL results '
     'and reports',
     long_description=long_description,
