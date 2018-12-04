@@ -55,6 +55,11 @@ class PairedIntersector:
                 for alt_work in works:
                     self.process_pair(work, alt_work, catalogue, output_path,
                                       writer)
+                # Delete output directory if empty.
+                try:
+                    os.rmdir(output_path)
+                except OSError:
+                    pass
 
     def _get_seen_pairs(self, tracking_filename):
         seen_pairs = {}
