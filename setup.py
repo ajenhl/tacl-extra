@@ -14,6 +14,7 @@ setup(
     author_email='jamie@artefact.org.nz',
     url='https://github.com/ajenhl/tacl-extra',
     project_urls={
+        'Documentation': 'http://tacl-extra.readthedocs.io/en/latest/',
         'Source': 'https://github.com/ajenhl/tacl-extra',
         'Tracker': 'https://github.com/ajenhl/tacl-extra/issues',
     },

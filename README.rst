@@ -21,5 +21,9 @@ Scripts provided are:
 The actual work of the scripts is done in library code that can be
 imported and used by other code.
 
+The code is developed at https://github.com/ajenhl/tacl-extra/ and the
+documentation is available at
+http://tacl-extra.readthedocs.io/en/latest/.
+
 
 .. _TACL: https://github.com/ajenhl/tacl/
