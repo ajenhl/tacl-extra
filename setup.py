@@ -19,13 +19,13 @@ setup(
     },
     python_requires='~=3.5',
     license='GPLv3+',
-    packages=['taclextra'],
+    packages=['taclextra', 'taclextra.cli'],
     entry_points={
         'console_scripts': [
-            'int-all=bin.int_all:main',
-            'jitc=bin.jitc:main',
-            'lifetime=bin.lifetime:main',
-            'paternity=bin.paternity:main',
+            'int-all=taclextra.cli.int_all:main',
+            'jitc=taclextra.cli.jitc:main',
+            'lifetime=taclextra.cli.lifetime:main',
+            'paternity=taclextra.cli.paternity:main',
         ],
     },
     package_data={
