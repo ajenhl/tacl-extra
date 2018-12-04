@@ -16,7 +16,7 @@ setup(
     project_urls={
         'Source': 'https://github.com/ajenhl/tacl-extra',
         'Tracker': 'https://github.com/ajenhl/tacl-extra/issues',
-    }
+    },
     python_requires='~=3.5',
     license='GPLv3+',
     packages=['taclextra'],
