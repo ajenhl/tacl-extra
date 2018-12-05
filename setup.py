@@ -18,7 +18,7 @@ setup(
         'Source': 'https://github.com/ajenhl/tacl-extra',
         'Tracker': 'https://github.com/ajenhl/tacl-extra/issues',
     },
-    python_requires='~=3.5',
+    python_requires='~=3.6',
     license='GPLv3+',
     packages=['taclextra', 'taclextra.cli'],
     entry_points={
