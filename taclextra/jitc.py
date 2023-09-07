@@ -134,7 +134,7 @@ class JitCReport(Report):
         weights = data.stack().unstack(RELATED_WORK).max()
         seen = []
         links = []
-        for (source, target), weight in weights.iteritems():
+        for (source, target), weight in weights.items():
             if target not in seen and target != source:
                 seen.append(source)
                 links.append({'source': works.index(source),
@@ -211,7 +211,9 @@ class JitCReport(Report):
         for index, work in enumerate(maybe_works):
             self._create_breakdown_chart(max_data, work, report_data_dir)
             self._create_related_chart(reverse_data, work, report_data_dir)
-            tables.append(export_data[work].dropna().to_html())
+            table = export_data[work].dropna().reindex(columns=[
+                "common", "shared", "unique"])
+            tables.append(table.to_html())
         context = {'other_works': no_works, 'sep': os.sep,
                    'tables': tables, 'works': works}
         self._write(context, output_dir, 'report.html', report_assets_dir)
