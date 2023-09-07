@@ -1,3 +1,14 @@
+1.1.0  2023-09-08  Jamie Norrish  <jamie@artefact.org.nz>
+
+  * Reworked files to use src directory.
+
+  * Switched to using pyproject.toml.
+
+  * Added sole-exception script.
+
+  * Updated tests to work with current version of tacl.
+
+
 1.0.1  2018-12-05  Jamie Norrish  <jamie@artefact.org.nz>
 
   * Added references/links to documentation.
