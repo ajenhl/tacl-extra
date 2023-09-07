@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools >= 42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tacl-extra"
+version = "1.1.0"
+authors = [
+  { name = "Jamie Norrish", email = "jamie@artefact.org.nz" },
+]
+description = "Collection of scripts to generate various TACL results and reports"
+readme = "README.rst"
+license = { file = "LICENSE" }
+requires-python = ">=3.8"
+classifiers = [
+    "Environment :: Console",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Programming Language :: Python :: 3",
+    "Topic :: Text Processing :: Linguistic",
+]
+dependencies = [
+    "tacl>=5.3.0",
+]
+
+[project.urls]
+homepage = "https://github.com/ajenhl/tacl-extra"
+documentation = "http://tacl-extra.readthedocs.io/en/latest/"
+
+[project.scripts]
+int-all = "taclextra.cli.int_all:main"
+jitc = "taclextra.cli.jitc:main"
+lifetime = "taclextra.cli.lifetime:main"
+paternity = "taclextra.cli.paternity:main"

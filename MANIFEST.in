@@ -1,0 +1,3 @@
+include src/taclextra/assets/jitc/*.css
+include src/taclextra/assets/jitc/*.js
+include src/taclextra/assets/templates/*.html
