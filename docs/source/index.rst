@@ -14,6 +14,7 @@ Welcome to tacl-extra's documentation!
    jitc
    lifetime
    paternity
+   sole-exception
 
 
 tacl-extra provides scripts and libraries that make use of the `TACL`_
@@ -32,6 +33,9 @@ Scripts provided are:
 * **paternity**: Generates a series of results files giving the
   n-grams in common between one corpus and each work in a second
   corpus, that are not present in a third corpus.
+* **sole-exception**: Generates a series of reports giving data on
+  works based on n-grams that exist only in a one of multiple
+  benchmark corpora and unclassified works.
 
 The actual work of the scripts is done in library code that can be
 imported and used by other code.

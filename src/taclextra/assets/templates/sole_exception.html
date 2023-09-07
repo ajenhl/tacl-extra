@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sole Exception Report - {{ title }}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/css/theme.default.min.css" integrity="sha512-wghhOJkjQX0Lh3NSWvNKeZ0ZpNn+SPVXX1Qyc9OCaogADktxrBiBdKGDoqVUOyhStvMBmJQ8ZdMHiR3wuEq8+w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+      body { padding: 1em 2em 1em 1em; }
+      .column_name { font-weight: bolder; }
+      .note { font-size: smaller; }
+      .table_header_wrapper {
+          position: relative;
+          top: 2em;
+          height: 4em;
+          overflow-x: auto;
+      }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.min.js" integrity="sha512-qzgd5cYSZcosqpzpn7zF2ZId8f/8CHmFKZ8j7mU4OUXTNRd5g+ZHBPsgKEwoqxCtdQvExE5LprwwPAgoicguNg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.widgets.min.js" integrity="sha512-dj/9K5GRIEZu+Igm9tC16XPOTz0RdPk9FGxfZxShWf65JJNU2TjbElGjuOo3EhwAJRPhJxwEJ5b+/Ouo+VqZdQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/widgets/widget-cssStickyHeaders.min.js" integrity="sha512-Ij1PJeRDrTJZqWN3Hw/bxaMczxXz+mCOBIkVCnmJAhc6zZTv9Zca5lhEDxymDbfua0KBKU5JW888MgHfInXlRA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  </head>
+  <body>
+    <h1>Sole Exception Report - {{ title }}</h1>
+
+    {% if corpora %}
+    <p><a href="#corpora">List of corpora</a></p>
+    {% endif %}
+
+    {% if works %}
+    <p><a href="#works">List of works</a></p>
+    {% endif %}
+
+    <h2>Key to Columns</h2>
+
+    <dl>
+      <dt class="column_name">corpus</dt>
+      <dd>The name of the benchmark corpus to which the <span class="column_name">work</span> is compared.</dd>
+      <dt class="column_name">corpus length</dt>
+      <dd>The number of tokens in <span class="column_name">corpus</span>, being the sum of the average number of tokens in each work (across all of its witnesses) in the corpus, rounded up to the nearest integer.</dd>
+      <dt class="column_name">work</dt>
+      <dd>The name of the unclassified work under examination.<dd>
+      <dt class="column_name">work length</dt>
+      <dd>The average number of tokens in <span class="column_name">work</span>, across all of its witnesses, rounded up to the nearest integer.</dd>
+      <dt class="column_name">number of markers</dt>
+      <dd>The average number of markers (n-grams exclusive to the <span class="column_name">corpus</span>) found across all of <span class="column_name">work</span>'s witnesses, rounded to the nearest integer.</dd>
+      <dt class="column_name">markers:length</dt>
+      <dd>Ratio of <span class="column_name">number of markers</span> to <span class="column_name">work length</span>. Calculated by dividing the unrounded values of the two columns.</dd>
+      <dt class="column_name">score</dt>
+      <dd>Ratio of <span class="column_name">number of markers</span> to <span class="column_name">work length</span>, adjusted to normalise the length of the <span class="column_name">corpus</span> that is the source of the markers and scaled to a value between 0 and 1. Calculated by dividing the unrounded values and multiplying by a normalisation factor of the longest corpus length divided by the <span class="column_name">corpus length</span>. Each value is then divided by the largest value to give a final value between 0 and 1.</dd>
+    </dl>
+
+    {% if has_extra_cols %}
+    <p>Other columns, between <span class="column_name">work</span>
+    and <span class="column_name">work length</span>, are those from
+    the CSV file the user (who ran the script to generate this report)
+    supplied. These columns contain additional work-specific data
+    outside the scope of the raw data used to generate markers and
+    scores.</p>
+    {% endif %}
+
+    <p class="note">Click on a column heading to sort by that column
+    or change the order of its sorting. Shift-click on a column
+    heading to add that column to the existing sort.</p>
+
+    <p class="note">Filter rows to matching column values in the
+    header boxes. For numeric fields > and < may be used, optionally
+    joined with "or" or "&&". Eg, "< 20 or > 40" or ">20 && <40".</p>
+
+    {{ table|safe }}
+
+    {% if corpora %}
+    <h2 id="corpora">Corpora</h2>
+
+    <ul>
+      {% for corpus in corpora %}
+      <li><a href="{{ corpus }}.html">{{ corpus }}</a></li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% if works %}
+    <h2 id="works">Works</h2>
+
+    <ul>
+      {% for work in works %}
+      <li><a href="{{ work }}.html">{{ work }}</a></li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    <script>
+      $(function() {
+        $("#report").tablesorter({
+          headerTemplate: "{content} {icon}",
+          sortList: [[{{ sort_index }},1]],
+          widgets: ["cssStickyHeaders", "filter", "zebra"],
+          widgetOptions: {
+            cssStickyHeaders_attachTo: ".table_header_wrapper",
+            zebra: ["even"]
+          },
+          widthFixed: true
+        });
+      });
+    </script>
+  </body>
+</html>
