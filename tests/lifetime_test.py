@@ -27,7 +27,7 @@ class LifetimeTestCase (TaclExtraTestCase):
         catalogue.load(os.path.join(self._data_dir, catalogue_name))
         with tempfile.TemporaryDirectory() as temp_dir:
             data_store = tacl.DataStore(os.path.join(temp_dir, 'test.db'),
-                                        False)
+                                        must_exist=False)
             data_store.add_ngrams(corpus, 1, 1)
             output_dir = os.path.join(temp_dir, 'output')
             reporter = lifetime.LifetimeReporter(

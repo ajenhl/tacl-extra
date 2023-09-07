@@ -32,7 +32,7 @@ class PaternityTestCase (TaclExtraTestCase):
         catalogue.load(self._catalogue)
         with tempfile.TemporaryDirectory() as temp_dir:
             data_store = tacl.DataStore(os.path.join(temp_dir, 'test.db'),
-                                        False)
+                                        must_exist=False)
             data_store.add_ngrams(corpus, 1, 1)
             output_dir = os.path.join(temp_dir, 'output')
             test = paternity.PaternityTest(

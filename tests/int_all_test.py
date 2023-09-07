@@ -25,7 +25,7 @@ class IntAllTestCase (TaclExtraTestCase):
                 data_store = None
             else:
                 data_store = tacl.DataStore(os.path.join(temp_dir, db_name),
-                                            False)
+                                            must_exist=False)
                 data_store.add_ngrams(corpus, minimum, maximum)
             actual_dir = os.path.join(temp_dir, 'actual')
             tracker_path = os.path.join(actual_dir, 'tracker.csv')
