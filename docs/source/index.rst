@@ -35,7 +35,11 @@ Scripts provided are:
   corpus, that are not present in a third corpus.
 * **sole-exception**: Generates a series of reports giving data on
   works based on n-grams that exist only in a one of multiple
-  benchmark corpora and unclassified works.
+  benchmark corpora and unclassified works. Not to be confused with
+  the sole-exceptions script below.
+* **sole-exceptions**: Generates results files for each work in a
+  corpus giving n-grams existing only in that work and a benchmark
+  corpus. Not to be confused with the sole-exception script above.
 
 The actual work of the scripts is done in library code that can be
 imported and used by other code.
