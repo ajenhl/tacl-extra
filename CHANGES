@@ -1,3 +1,9 @@
+1.2.0  2023-09-08  Jamie Norrish  <jamie@artefact.org.nz>
+
+  * Added sole-exceptions script. This is entirely distinct from the
+    sole-exception script (!).
+
+
 1.1.0  2023-09-08  Jamie Norrish  <jamie@artefact.org.nz>
 
   * Reworked files to use src directory.
